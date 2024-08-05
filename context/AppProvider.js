@@ -9,7 +9,7 @@ export const AppContext = React.createContext({
 });
 
 const AppProvider = ({ children }) => {
-  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.LOGIN);
+  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.HOME);
   const [loggedInUser, setLoggedInUser] = React.useState();
 
   return (

@@ -7,8 +7,8 @@ const Nav = ({ icon, title, iconTwo }) => {
       <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
         <Text>{icon}</Text>
       </TouchableOpacity>
-      <Text>{title}</Text>
-      <TouchableOpacity activeOpacity={0.8}>
+      <Text style={styles.navText}>{title}</Text>
+      <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
         <Text>{iconTwo}</Text>
       </TouchableOpacity>
     </View>
@@ -22,10 +22,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   btn: {
-    backgroundColor: '#242424',
+    backgroundColor: "#242424",
     padding: 8,
-    borderRadius: 50
-  }
+    borderRadius: 50,
+  },
+  navText: {
+    color: "#fff",
+    fontWeight: "500",
+  },
 });
 
 export default Nav;

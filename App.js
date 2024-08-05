@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import AppProvider, { AppContext } from "./context/AppProvider";
 import { APP_PAGES } from "./context/Settings";
 import LoginScreen from "./components/Screens/LoginScreen";
+import HomeScreen from "./components/Screens/HomeScreen";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ const NavWrapper = () => {
         style="light"
       />
       {navPage === APP_PAGES.APP.LOGIN && <LoginScreen />}
+      {navPage === APP_PAGES.APP.HOME && <HomeScreen />}
     </View>
   );
 };
