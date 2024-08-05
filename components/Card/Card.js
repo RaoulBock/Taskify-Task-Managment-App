@@ -2,24 +2,17 @@ import React from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import moment from "moment";
 
-const Card = ({ width, style }) => {
-  const currentDate = moment().format("MMMM Do YYYY");
-
+const Card = ({ width, title, tag, description, dueDate }) => {
   return (
     <View style={[styles.outline, { width: width }]}>
       <View style={styles.grid}>
-        <Text style={styles.title}>Fora - Website</Text>
-        <Text style={styles.tag}>Website</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.tag}>{tag}</Text>
       </View>
       <View>
-        <Text style={styles.description}>
-          1. Lorem adipisicing est occaecat anim sint eu occaecat et minim nisi
-          2. sint. Laborum qui cillum ad et eu sint esse duis non consequat eu
-          3. ullamco cupidatat veniam. Qui tempor ad esse commodo anim quis
-          labore.
-        </Text>
+        <Text style={styles.description}>{description}</Text>
         <Text style={styles.dueDate}>Due Date:</Text>
-        <Text style={styles.date}>{currentDate}</Text>
+        <Text style={styles.date}>{dueDate}</Text>
       </View>
     </View>
   );

@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import Nav from "../Nav/Nav";
-import { APP_ICONS } from "../../context/Settings";
+import { APP_ICONS, TASK_DATA } from "../../context/Settings";
 import moment from "moment";
 import Card from "../Card/Card";
 
@@ -24,30 +24,29 @@ const HomeScreen = () => {
       <Nav
         title={"Home"}
         icon={APP_ICONS.CALENDER}
-        iconTwo={APP_ICONS.NOTIFICATION}
+        iconTwo={APP_ICONS.CREATE}
       />
-      <View style={{ flex: 1 }}>
+      <View>
         <View>
           <Text style={styles.dateText}>{currentDate}</Text>
-          <Card />
+          {TASK_DATA.map((e, i) => {
+            return (
+              <Card
+                key={i}
+                title={e.title}
+                tag={e.tag}
+                description={e.description}
+                dueDate={e.dueDate}
+              />
+            );
+          })}
         </View>
-        <View style={{ width: "100%" }}>
+        <View>
           <Text style={styles.dateText}>Due this week</Text>
           <ScrollView horizontal style={{ width: "100%" }}>
-            <Card width={width / 2} />
+            {/* <Card width={width / 2} /> */}
           </ScrollView>
         </View>
-      </View>
-      <View style={styles.bottomNav}>
-        {/* <TouchableOpacity activeOpacity={0.8}>
-          <Text>{APP_ICONS.HOME}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.8}>
-          <Text>{APP_ICONS.CREATE}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.8}>
-          <Text>{APP_ICONS.CALENDER}</Text>
-        </TouchableOpacity> */}
       </View>
     </View>
   );

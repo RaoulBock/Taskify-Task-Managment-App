@@ -5,6 +5,7 @@ import AppProvider, { AppContext } from "./context/AppProvider";
 import { APP_PAGES } from "./context/Settings";
 import LoginScreen from "./components/Screens/LoginScreen";
 import HomeScreen from "./components/Screens/HomeScreen";
+import CreateTaskScreen from "./components/Screens/CreateTaskScreen";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ const NavWrapper = () => {
       />
       {navPage === APP_PAGES.APP.LOGIN && <LoginScreen />}
       {navPage === APP_PAGES.APP.HOME && <HomeScreen />}
+      {navPage === APP_PAGES.APP.CREATE && <CreateTaskScreen />}
     </View>
   );
 };

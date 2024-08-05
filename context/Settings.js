@@ -4,6 +4,7 @@ export const APP_PAGES = {
   APP: {
     LOGIN: "LOGIN",
     HOME: "HOME",
+    CREATE: "CREATE",
   },
 };
 
@@ -39,9 +40,21 @@ export const APP_ICONS = {
     />
   ),
   HOME: (
+    <Ionicons name={"home-outline"} style={{ color: "#fff", fontSize: 20 }} />
+  ),
+  SAVE: (
     <Ionicons
-      name={"home-outline"}
+      name={"checkmark-outline"}
       style={{ color: "#fff", fontSize: 20 }}
     />
   ),
 };
+export const TASK_DATA = [
+  {
+    title: "Fora - Website",
+    tag: "Website",
+    description:
+      "1. Lorem adipisicing est occaecat anim sint eu occaecat et minim nisi 2. sint. Laborum qui cillum ad et eu sint esse duis non consequat eu 3. ullamco cupidatat veniam. Qui tempor ad esse commodo anim quis labore.",
+    dueDate: "August 5th 2024",
+  },
+];
