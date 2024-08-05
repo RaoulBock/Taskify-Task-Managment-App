@@ -48,6 +48,18 @@ export const APP_ICONS = {
       style={{ color: "#fff", fontSize: 20 }}
     />
   ),
+  LEFT: (
+    <Ionicons
+      name={"chevron-back-outline"}
+      style={{ color: "#fff", fontSize: 20 }}
+    />
+  ),
+  RIGHT: (
+    <Ionicons
+      name={"chevron-forward-outline"}
+      style={{ color: "#fff", fontSize: 20 }}
+    />
+  ),
 };
 export const TASK_DATA = [
   {

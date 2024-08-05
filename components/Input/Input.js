@@ -13,12 +13,15 @@ const Input = ({
   title,
   editable,
   placeholderTextColor,
+  multiline,
+  numberOfLines,
+  style,
 }) => {
   return (
     <View style={styles.outline}>
       <Text style={styles.title}>{title}</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, style]}
         onChangeText={onChangeText}
         value={value}
         placeholder={placeholder}
@@ -27,16 +30,9 @@ const Input = ({
         onSubmitEditing={onSubmitEditing}
         editabl={editable}
         placeholderTextColor={placeholderTextColor}
+        multiline={multiline}
+        numberOfLines={numberOfLines}
       />
-      {secureTextEntry === true && (
-        <TouchableOpacity
-          style={styles.eye}
-          activeOpacity={0.8}
-          onPress={() => console.log("Hello")}
-        >
-          <Text>{APP_ICONS.EYE}</Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 };
@@ -54,12 +50,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginBottom: 10,
     fontWeight: "200",
-  },
-  outline: {},
-  eye: {
-    position: "relative",
-    top: "-35%",
-    left: "90%",
   },
 });
 

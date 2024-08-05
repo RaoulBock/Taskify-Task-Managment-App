@@ -11,10 +11,21 @@ export const AppContext = React.createContext({
 const AppProvider = ({ children }) => {
   const [navPage, setNavPage] = React.useState(APP_PAGES.APP.CREATE);
   const [loggedInUser, setLoggedInUser] = React.useState();
+  const [calenderVisable, setCalenderVisable] = React.useState(false);
+  const [dueDateData, setDueDateData] = React.useState();
 
   return (
     <AppContext.Provider
-      value={{ navPage, setNavPage, loggedInUser, setLoggedInUser }}
+      value={{
+        navPage,
+        setNavPage,
+        loggedInUser,
+        setLoggedInUser,
+        calenderVisable,
+        setCalenderVisable,
+        dueDateData,
+        setDueDateData,
+      }}
     >
       {children}
     </AppContext.Provider>
