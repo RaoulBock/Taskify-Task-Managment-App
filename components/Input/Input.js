@@ -16,12 +16,15 @@ const Input = ({
   multiline,
   numberOfLines,
   style,
+  error,
 }) => {
   return (
     <View style={styles.outline}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, error ? styles.errorText : null]}>
+        {title}
+      </Text>
       <TextInput
-        style={[styles.input, style]}
+        style={[styles.input, style, error ? styles.inputError : null]}
         onChangeText={onChangeText}
         value={value}
         placeholder={placeholder}
@@ -33,6 +36,7 @@ const Input = ({
         multiline={multiline}
         numberOfLines={numberOfLines}
       />
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -50,6 +54,13 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginBottom: 10,
     fontWeight: "200",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+  },
+  inputError: {
+    borderColor: "red", // Red border for error state
   },
 });
 

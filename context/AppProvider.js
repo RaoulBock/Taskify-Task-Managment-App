@@ -15,6 +15,7 @@ const AppProvider = ({ children }) => {
   const [dueDateData, setDueDateData] = React.useState();
   const [clockVisable, setClockVisable] = React.useState(false);
   const [clockData, setClockData] = React.useState("");
+  const [priorityData, setPropertyData] = React.useState();
 
   return (
     <AppContext.Provider
@@ -31,6 +32,8 @@ const AppProvider = ({ children }) => {
         setClockVisable,
         clockData,
         setClockData,
+        priorityData,
+        setPropertyData,
       }}
     >
       {children}

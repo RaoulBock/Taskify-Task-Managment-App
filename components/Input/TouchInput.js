@@ -2,18 +2,19 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { APP_ICONS } from "../../context/Settings";
 
-const TouchInput = ({ title, text, style, onPress, icon }) => {
+const TouchInput = ({ title, text, style, onPress, icon, error }) => {
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
       <TouchableOpacity
         activeOpacity={0.8}
-        style={[styles.touchInput, style]}
+        style={[styles.touchInput, style, error ? styles.inputError : null]}
         onPress={onPress}
       >
         <Text style={styles.text}>{text}</Text>
         <Text>{icon}</Text>
       </TouchableOpacity>
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -38,6 +39,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+  },
+  inputError: {
+    borderColor: "red", // Red border for error state
   },
 });
 

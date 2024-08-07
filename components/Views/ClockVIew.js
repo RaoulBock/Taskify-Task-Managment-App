@@ -12,9 +12,9 @@ import { AppContext } from "../../context/AppProvider";
 const { width, height } = Dimensions.get("window");
 
 const ClockVIew = () => {
-  const { setClockData } = React.useContext(AppContext);
+  const { setClockData, clockData } = React.useContext(AppContext);
   const num = [...Array(61).keys()].filter((e) => e !== 0);
-  const [activeNum, setActiveNum] = React.useState(1);
+  const [activeNum, setActiveNum] = React.useState(clockData);
   const [activeBtn, setActiveBtn] = React.useState("/ min");
   return (
     <View style={styles.outline}>
