@@ -60,6 +60,9 @@ export const APP_ICONS = {
       style={{ color: "#fff", fontSize: 20 }}
     />
   ),
+  CLOCK: (
+    <Ionicons name={"alarm-outline"} style={{ color: "#fff", fontSize: 20 }} />
+  ),
 };
 export const TASK_DATA = [
   {

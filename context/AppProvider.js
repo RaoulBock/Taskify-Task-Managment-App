@@ -13,6 +13,8 @@ const AppProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = React.useState();
   const [calenderVisable, setCalenderVisable] = React.useState(false);
   const [dueDateData, setDueDateData] = React.useState();
+  const [clockVisable, setClockVisable] = React.useState(false);
+  const [clockData, setClockData] = React.useState("");
 
   return (
     <AppContext.Provider
@@ -25,6 +27,10 @@ const AppProvider = ({ children }) => {
         setCalenderVisable,
         dueDateData,
         setDueDateData,
+        clockVisable,
+        setClockVisable,
+        clockData,
+        setClockData,
       }}
     >
       {children}

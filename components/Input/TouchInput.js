@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { APP_ICONS } from "../../context/Settings";
 
-const TouchInput = ({ title, text, style, onPress }) => {
+const TouchInput = ({ title, text, style, onPress, icon }) => {
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
@@ -11,6 +12,7 @@ const TouchInput = ({ title, text, style, onPress }) => {
         onPress={onPress}
       >
         <Text style={styles.text}>{text}</Text>
+        <Text>{icon}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -30,6 +32,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: "#fff",
     paddingVertical: 11,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   text: {
     color: "#fff",

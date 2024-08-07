@@ -14,12 +14,20 @@ import TouchInput from "../Input/TouchInput";
 import { AppContext } from "../../context/AppProvider";
 import Models from "../Models/Models";
 import CalenderView from "../Views/CalenderView";
+import ClockVIew from "../Views/ClockVIew";
 
 const { width, height } = Dimensions.get("window");
 
 const CreateTaskScreen = () => {
-  const { setCalenderVisable, calenderVisable, dueDateData } =
-    React.useContext(AppContext);
+  const {
+    setCalenderVisable,
+    calenderVisable,
+    dueDateData,
+    clockVisable,
+    setClockVisable,
+    clockData,
+    setClockData,
+  } = React.useContext(AppContext);
 
   return (
     <View style={styles.outline}>
@@ -28,6 +36,14 @@ const CreateTaskScreen = () => {
           visible={calenderVisable}
           onClose={setCalenderVisable}
           children={<CalenderView />}
+        />
+      )}
+      {clockVisable && (
+        <Models
+          visible={clockVisable}
+          onClose={setClockVisable}
+          children={<ClockVIew />}
+          customHeight={height * 0.85}
         />
       )}
       <Nav
@@ -60,14 +76,16 @@ const CreateTaskScreen = () => {
               style={{ width: width / 2 }}
               onPress={() => setCalenderVisable(true)}
               text={dueDateData}
+              icon={APP_ICONS.CALENDER}
             />
           </View>
           <View style={styles.formCtrl}>
-            <Input
-              title={"Estimate task"}
-              placeholder={""}
-              placeholderTextColor={"#242424"}
+            <TouchInput
+              title={"Estimate task time"}
               style={{ width: width / 3 }}
+              onPress={() => setClockVisable(true)}
+              text={`${clockData} minutes`}
+              icon={APP_ICONS.CLOCK}
             />
           </View>
         </View>
