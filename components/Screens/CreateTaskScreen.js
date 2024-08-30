@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Nav from "../Nav/Nav";
-import { APP_ICONS } from "../../context/Settings";
+import { APP_ICONS, APP_PAGES } from "../../context/Settings";
 import Input from "../Input/Input";
 import TouchInput from "../Input/TouchInput";
 import { AppContext } from "../../context/AppProvider";
@@ -18,6 +18,7 @@ import Models from "../Models/Models";
 import CalenderView from "../Views/CalenderView";
 import ClockVIew from "../Views/ClockVIew";
 import PriorityCard from "../Card/PriorityCard";
+import { getRandomColor } from "../../utils/helpers";
 
 const { width, height } = Dimensions.get("window");
 
@@ -33,6 +34,7 @@ const CreateTaskScreen = () => {
     priorityData,
     setPropertyData,
     setClockData,
+    setNavPage,
   } = React.useContext(AppContext);
   const PRIORITY_LEVEL = ["Low", "Medium", "High"];
   const [titleTask, setTitleTask] = React.useState("");
@@ -89,16 +91,25 @@ const CreateTaskScreen = () => {
         dueDate: dueDateData,
         estimatedTime: clockData,
         priority: priorityData,
+        color: getRandomColor(),
       };
 
-      console.log(newTask);
-      // await AsyncStorage.setItem(
-      //   "tasks",
-      //   JSON.stringify([
-      //     newTask,
-      //     ...JSON.parse(await AsyncStorage.getItem("tasks")),
-      //   ])
-      // );
+      try {
+        // Retrieve existing tasks
+        const existingTasks = await AsyncStorage.getItem("taskData");
+        let taskArray = existingTasks ? JSON.parse(existingTasks) : [];
+
+        // Add the new task to the array
+        taskArray.push(newTask);
+
+        // Save the updated array back to AsyncStorage
+        await AsyncStorage.setItem("taskData", JSON.stringify(taskArray));
+
+        setNavPage(APP_PAGES.APP.HOME);
+        console.log("Data successfully saved");
+      } catch (err) {
+        console.log("Failed to save the data to AsyncStorage:", err);
+      }
     }
   };
 
@@ -124,6 +135,7 @@ const CreateTaskScreen = () => {
         title={"Create new task"}
         iconTwo={APP_ICONS.SAVE}
         onPressTwo={handleSave}
+        onPress={() => setNavPage(APP_PAGES.APP.HOME)}
       />
       <View style={{ marginVertical: 18 }}>
         <View style={styles.formCtrl}>

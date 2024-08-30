@@ -9,13 +9,14 @@ export const AppContext = React.createContext({
 });
 
 const AppProvider = ({ children }) => {
-  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.CREATE);
+  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.HOME);
   const [loggedInUser, setLoggedInUser] = React.useState();
   const [calenderVisable, setCalenderVisable] = React.useState(false);
   const [dueDateData, setDueDateData] = React.useState();
   const [clockVisable, setClockVisable] = React.useState(false);
   const [clockData, setClockData] = React.useState("");
   const [priorityData, setPropertyData] = React.useState();
+  const [taskLocalData, setTaskLocalData] = React.useState([]);
 
   return (
     <AppContext.Provider
@@ -34,6 +35,8 @@ const AppProvider = ({ children }) => {
         setClockData,
         priorityData,
         setPropertyData,
+        taskLocalData,
+        setTaskLocalData,
       }}
     >
       {children}

@@ -25,8 +25,8 @@ const CalenderView = () => {
   }, [selectedDate, eventData]);
 
   React.useEffect(() => {
-    console.log("Selected date:", selectedDate.format("D MMM YY"));
-    setDueDateData(selectedDate.format("D MMM YY"));
+    console.log("Selected date:", selectedDate.format("MMMM Do YYYY"));
+    setDueDateData(selectedDate.format("MMMM Do YYYY"));
   }, [selectedDate]);
 
   const generateDaysInMonth = () => {
@@ -61,7 +61,7 @@ const CalenderView = () => {
     <>
       <Nav
         icon={APP_ICONS.LEFT}
-        title={selectedDate.format("MMMM YYYY")}
+        title={selectedDate.format("MMMM Do YYYY")}
         iconTwo={APP_ICONS.RIGHT}
         style={{ color: "#1d1d1d" }}
         onPress={handlePreviousMonth}
@@ -99,7 +99,7 @@ const CalenderView = () => {
                 >
                   {day.date()}
                 </Text>
-                {eventsByDate[day.format("YYYY-MM-DD")] && (
+                {eventsByDate[day.format("MMMM Do YYYY")] && (
                   <View style={styles.eventIndicator} />
                 )}
               </>

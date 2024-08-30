@@ -2,15 +2,19 @@ import React from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import moment from "moment";
 
-const Card = ({ width, title, tag, description, dueDate }) => {
+const Card = ({ width, title, priority, description, dueDate, style }) => {
   return (
-    <View style={[styles.outline, { width: width }]}>
+    <View style={[styles.outline, style, { width: width }]}>
       <View style={styles.grid}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.tag}>{tag}</Text>
+        <Text numberOfLines={1} style={styles.title}>
+          {title}
+        </Text>
+        <Text style={styles.tag}>{priority}</Text>
       </View>
       <View>
-        <Text style={styles.description}>{description}</Text>
+        <Text numberOfLines={2} style={styles.description}>
+          {description}
+        </Text>
         <Text style={styles.dueDate}>Due Date:</Text>
         <Text style={styles.date}>{dueDate}</Text>
       </View>
@@ -28,6 +32,7 @@ const styles = StyleSheet.create({
     color: "#1d1d1d",
     fontWeight: "700",
     fontSize: 14,
+    flex: 1,
   },
   tag: {
     backgroundColor: "#1d1d1d",
