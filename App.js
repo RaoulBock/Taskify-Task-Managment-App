@@ -6,6 +6,7 @@ import { APP_PAGES, COLORS } from "./context/Settings";
 import LoginScreen from "./components/Screens/LoginScreen";
 import HomeScreen from "./components/Screens/HomeScreen";
 import CreateTaskScreen from "./components/Screens/CreateTaskScreen";
+import SpecTaskScreen from "./components/Screens/SpecTaskScreen";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ const NavWrapper = () => {
       {navPage === APP_PAGES.APP.LOGIN && <LoginScreen />}
       {navPage === APP_PAGES.APP.HOME && <HomeScreen />}
       {navPage === APP_PAGES.APP.CREATE && <CreateTaskScreen />}
+      {navPage === APP_PAGES.APP.SPECTASK && <SpecTaskScreen />}
     </View>
   );
 };

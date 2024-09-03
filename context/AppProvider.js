@@ -17,6 +17,7 @@ const AppProvider = ({ children }) => {
   const [clockData, setClockData] = React.useState("");
   const [priorityData, setPropertyData] = React.useState();
   const [taskLocalData, setTaskLocalData] = React.useState([]);
+  const [specTaskData, setSpecTaskData] = React.useState();
 
   return (
     <AppContext.Provider
@@ -37,6 +38,8 @@ const AppProvider = ({ children }) => {
         setPropertyData,
         taskLocalData,
         setTaskLocalData,
+        specTaskData,
+        setSpecTaskData,
       }}
     >
       {children}

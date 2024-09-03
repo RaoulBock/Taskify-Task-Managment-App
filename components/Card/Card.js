@@ -1,10 +1,28 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import moment from "moment";
 
-const Card = ({ width, title, priority, description, dueDate, style }) => {
+const Card = ({
+  width,
+  title,
+  priority,
+  description,
+  dueDate,
+  style,
+  onPress,
+}) => {
   return (
-    <View style={[styles.outline, style, { width: width }]}>
+    <TouchableOpacity
+      style={[styles.outline, style, { width: width }]}
+      activeOpacity={0.8}
+      onPress={onPress}
+    >
       <View style={styles.grid}>
         <Text numberOfLines={1} style={styles.title}>
           {title}
@@ -18,7 +36,7 @@ const Card = ({ width, title, priority, description, dueDate, style }) => {
         <Text style={styles.dueDate}>Due Date:</Text>
         <Text style={styles.date}>{dueDate}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

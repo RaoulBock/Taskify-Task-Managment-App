@@ -6,7 +6,6 @@ import {
   Platform,
   StatusBar,
   ScrollView,
-  Dimensions,
   TouchableOpacity,
 } from "react-native";
 import Nav from "../Nav/Nav";
@@ -16,11 +15,14 @@ import Card from "../Card/Card";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppContext } from "../../context/AppProvider";
 
-const { width } = Dimensions.get("window");
-
 const HomeScreen = () => {
-  const { taskLocalData, setTaskLocalData, setNavPage } =
-    React.useContext(AppContext);
+  const {
+    taskLocalData,
+    setTaskLocalData,
+    setNavPage,
+    specTaskData,
+    setSpecTaskData,
+  } = React.useContext(AppContext);
   const [selectedDate, setSelectedDate] = React.useState(
     moment().format("DD MMM")
   );
@@ -69,7 +71,6 @@ const HomeScreen = () => {
         iconTwo={APP_ICONS.CREATE}
         onPressTwo={() => setNavPage(APP_PAGES.APP.CREATE)}
       />
-
       <View>
         <ScrollView
           horizontal
@@ -122,6 +123,10 @@ const HomeScreen = () => {
                 priority={e.priority}
                 dueDate={e.dueDate}
                 style={{ backgroundColor: e.color, marginBottom: 10 }}
+                onPress={() => {
+                  setSpecTaskData(e);
+                  setNavPage(APP_PAGES.APP.SPECTASK);
+                }}
               />
             ))
           ) : (
