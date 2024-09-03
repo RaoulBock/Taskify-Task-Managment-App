@@ -7,6 +7,7 @@ import {
   StatusBar,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import Nav from "../Nav/Nav";
 import { APP_ICONS, APP_PAGES } from "../../context/Settings";
@@ -20,6 +21,9 @@ const { width } = Dimensions.get("window");
 const HomeScreen = () => {
   const { taskLocalData, setTaskLocalData, setNavPage } =
     React.useContext(AppContext);
+  const [selectedDate, setSelectedDate] = React.useState(
+    moment().format("DD MMM")
+  );
 
   React.useEffect(() => {
     const getDataFromLocalStorage = async () => {
@@ -40,10 +44,9 @@ const HomeScreen = () => {
     getDataFromLocalStorage();
   }, []);
 
-  const currentDate = moment().format("MMMM Do YYYY");
   const todayDate = moment().format("DD MMM");
   const filteredDataDueToday = taskLocalData.filter(
-    (e) => e.dueDate === todayDate
+    (e) => e.dueDate === selectedDate
   );
 
   const today = moment();
@@ -68,43 +71,47 @@ const HomeScreen = () => {
       />
 
       <View>
-        {/* <Text style={styles.dateText}>Manage your tasks 🗓️</Text> */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.dateList}
         >
           {dates.map((item, index) => (
-            <View
+            <TouchableOpacity
               key={index}
-              style={[
-                styles.dateItem,
-                item.date === todayDate && styles.currentDate,
-              ]}
+              onPress={() => setSelectedDate(item.date)}
+              activeOpacity={0.8}
             >
-              <Text
+              <View
                 style={[
-                  styles.day,
-                  item.date === todayDate && styles.currentDateText,
+                  styles.dateItem,
+                  item.date === selectedDate && styles.currentDate,
                 ]}
               >
-                {item.day}
-              </Text>
-              <Text
-                style={[
-                  styles.date,
-                  item.date === todayDate && styles.currentDateText,
-                ]}
-              >
-                {item.date}
-              </Text>
-            </View>
+                <Text
+                  style={[
+                    styles.day,
+                    item.date === selectedDate && styles.currentDateText,
+                  ]}
+                >
+                  {item.day}
+                </Text>
+                <Text
+                  style={[
+                    styles.date,
+                    item.date === selectedDate && styles.currentDateText,
+                  ]}
+                >
+                  {item.date}
+                </Text>
+              </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
 
       <View>
-        {/* <Text style={styles.tasksHeader}>Tasks for Today</Text> */}
+        {/* <Text style={styles.tasksHeader}>Tasks for {selectedDate}</Text> */}
         <ScrollView>
           {filteredDataDueToday.length > 0 ? (
             filteredDataDueToday.map((e, i) => (
@@ -118,7 +125,7 @@ const HomeScreen = () => {
               />
             ))
           ) : (
-            <Text style={styles.noTasks}>No tasks for today!</Text>
+            <Text style={styles.noTasks}>No tasks for {selectedDate}!</Text>
           )}
         </ScrollView>
       </View>

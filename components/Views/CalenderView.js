@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   daysOfWeekContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10,
+    marginVertical: 16,
   },
   dayOfWeekText: {
     width: "14%",
