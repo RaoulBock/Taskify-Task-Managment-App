@@ -10,7 +10,12 @@ import {
   Dimensions,
 } from "react-native";
 import Nav from "../Nav/Nav";
-import { APP_ICONS, APP_PAGES, COLORS, TASK_DATA } from "../../context/Settings";
+import {
+  APP_ICONS,
+  APP_PAGES,
+  COLORS,
+  TASK_DATA,
+} from "../../context/Settings";
 import moment from "moment";
 import Card from "../Card/Card";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -68,70 +73,57 @@ const HomeScreen = () => {
         iconTwo={APP_ICONS.CREATE}
         onPressTwo={() => setNavPage(APP_PAGES.APP.CREATE)}
       />
+
       <View>
-        <View>
-          <Text style={styles.dateText}>Manage your tasks ✏️</Text>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.dateList}
-          >
-            {dates.map((item, index) => (
-              <View
-                key={index}
+        <Text style={styles.dateText}>Manage your tasks 🗓️</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.dateList}
+        >
+          {dates.map((item, index) => (
+            <View
+              key={index}
+              style={[
+                styles.dateItem,
+                item.date === today.format("DD MMM") && styles.currentDate,
+              ]}
+            >
+              <Text
                 style={[
-                  styles.dateItem,
-                  item.date === today.format("DD MMM") && styles.currentDate,
+                  styles.day,
+                  item.date === today.format("DD MMM") &&
+                    styles.currentDateText,
                 ]}
               >
-                <Text
-                  style={[
-                    styles.day,
-                    item.date === today.format("DD MMM") && { color: "white" },
-                  ]}
-                >
-                  {item.day}
-                </Text>
-                <Text
-                  style={[
-                    styles.date,
-                    item.date === today.format("DD MMM") && { color: "white" },
-                  ]}
-                >
-                  {item.date}
-                </Text>
-              </View>
-            ))}
-          </ScrollView>
-          <ScrollView horizontal style={{ width: "100%" }}>
-            {filteredDataDueToday.map((e, i) => (
-              <Card
-                key={i}
-                title={e.title}
-                description={e.description}
-                priority={e.priority}
-                dueDate={e.dueDate}
-                style={{ marginRight: 10, backgroundColor: e.color }}
-                width={width / 2}
-              />
-            ))}
-          </ScrollView>
-        </View>
-        <View>
-          <Text style={styles.dateText}>All tasks</Text>
-          <ScrollView showsHorizontalScrollIndicator={false}>
-            {taskLocalData.map((e, i) => (
-              <Card
-                key={i}
-                title={e.title}
-                description={e.description}
-                priority={e.priority}
-                dueDate={e.dueDate}
-                style={{ backgroundColor: e.color, marginBottom: 10 }}
-              />
-            ))}
-          </ScrollView>
-        </View>
+                {item.day}
+              </Text>
+              <Text
+                style={[
+                  styles.date,
+                  item.date === today.format("DD MMM") &&
+                    styles.currentDateText,
+                ]}
+              >
+                {item.date}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+      <View>
+        <ScrollView>
+          {taskLocalData.map((e, i) => (
+            <Card
+              key={i}
+              title={e.title}
+              description={e.description}
+              priority={e.priority}
+              dueDate={e.dueDate}
+              style={{ backgroundColor: e.color, marginBottom: 10 }}
+            />
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -146,16 +138,13 @@ const styles = StyleSheet.create({
   dateText: {
     color: "#fff",
     fontWeight: "500",
-    fontSize: 48,
-    marginVertical: 20,
+    fontSize: 46,
+    marginTop: 16,
   },
   bottomNav: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  dateList: {
-    paddingVertical: 10,
   },
   dateItem: {
     alignItems: "center",
@@ -174,9 +163,15 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   currentDate: {
-    backgroundColor: COLORS.WHITE,
-    color: "white",
+    backgroundColor: "white",
     borderRadius: 5,
+    borderRadius: 10,
+  },
+  currentDateText: {
+    color: "black", // Text color when the background is white
+  },
+  dateList: {
+    marginVertical: 26,
   },
 });
 
