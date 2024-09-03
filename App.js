@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import AppProvider, { AppContext } from "./context/AppProvider";
-import { APP_PAGES } from "./context/Settings";
+import { APP_PAGES, COLORS } from "./context/Settings";
 import LoginScreen from "./components/Screens/LoginScreen";
 import HomeScreen from "./components/Screens/HomeScreen";
 import CreateTaskScreen from "./components/Screens/CreateTaskScreen";
@@ -30,7 +30,7 @@ const NavWrapper = () => {
     <View style={styles.container}>
       <StatusBar
         animated={true}
-        backgroundColor="#0a0a0a"
+        backgroundColor={COLORS.MAIN_BACKGROUND}
         barStyle={"light-content"}
         style="light"
       />
@@ -46,6 +46,6 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0a0a0a",
+    backgroundColor: COLORS.MAIN_BACKGROUND,
   },
 });

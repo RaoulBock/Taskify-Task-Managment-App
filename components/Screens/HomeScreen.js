@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import Nav from "../Nav/Nav";
-import { APP_ICONS, APP_PAGES, TASK_DATA } from "../../context/Settings";
+import { APP_ICONS, APP_PAGES, COLORS, TASK_DATA } from "../../context/Settings";
 import moment from "moment";
 import Card from "../Card/Card";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -44,22 +44,21 @@ const HomeScreen = () => {
     getDataFromLocalStorage();
   }, []);
 
-  // Get the start and end of the current week
-  const startOfWeek = moment().startOf("week").format("MMMM Do YYYY");
-  const endOfWeek = moment().endOf("week").format("MMMM Do YYYY");
   const currentDate = moment().format("MMMM Do YYYY");
   const filteredDataDueToday = taskLocalData.filter(
     (e) => e.dueDate === currentDate
   );
-  const filteredDataDueThisWeek = taskLocalData.filter((e) => {
-    const taskDate = moment(e.dueDate).format("MMMM Do YYYY");
-    return moment(taskDate, "MMMM Do YYYY").isBetween(
-      startOfWeek,
-      endOfWeek,
-      null,
-      "[]"
-    );
-  });
+  const today = moment();
+  const startOfMonth = moment().startOf("month");
+  const endOfMonth = moment().endOf("month");
+  const dates = [];
+
+  for (let day = startOfMonth; day <= endOfMonth; day.add(1, "days")) {
+    dates.push({
+      day: day.format("ddd"), // Day of the week (e.g., 'Mon')
+      date: day.format("DD MMM"), // Date in 'DD MMM' format (e.g., '04 Sep')
+    });
+  }
 
   return (
     <View style={styles.outline}>
@@ -71,7 +70,39 @@ const HomeScreen = () => {
       />
       <View>
         <View>
-          <Text style={styles.dateText}>Due today</Text>
+          <Text style={styles.dateText}>Manage your tasks ✏️</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.dateList}
+          >
+            {dates.map((item, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.dateItem,
+                  item.date === today.format("DD MMM") && styles.currentDate,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.day,
+                    item.date === today.format("DD MMM") && { color: "white" },
+                  ]}
+                >
+                  {item.day}
+                </Text>
+                <Text
+                  style={[
+                    styles.date,
+                    item.date === today.format("DD MMM") && { color: "white" },
+                  ]}
+                >
+                  {item.date}
+                </Text>
+              </View>
+            ))}
+          </ScrollView>
           <ScrollView horizontal style={{ width: "100%" }}>
             {filteredDataDueToday.map((e, i) => (
               <Card
@@ -88,7 +119,7 @@ const HomeScreen = () => {
         </View>
         <View>
           <Text style={styles.dateText}>All tasks</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <ScrollView showsHorizontalScrollIndicator={false}>
             {taskLocalData.map((e, i) => (
               <Card
                 key={i}
@@ -96,8 +127,7 @@ const HomeScreen = () => {
                 description={e.description}
                 priority={e.priority}
                 dueDate={e.dueDate}
-                style={{ marginRight: 10, backgroundColor: e.color }}
-                width={width / 2}
+                style={{ backgroundColor: e.color, marginBottom: 10 }}
               />
             ))}
           </ScrollView>
@@ -116,13 +146,37 @@ const styles = StyleSheet.create({
   dateText: {
     color: "#fff",
     fontWeight: "500",
-    fontSize: 18,
+    fontSize: 48,
     marginVertical: 20,
   },
   bottomNav: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  dateList: {
+    paddingVertical: 10,
+  },
+  dateItem: {
+    alignItems: "center",
+    marginRight: 20,
+    padding: 10,
+    borderRadius: 5,
+  },
+  day: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#333",
+    marginBottom: 16,
+  },
+  date: {
+    fontSize: 14,
+    color: "#666",
+  },
+  currentDate: {
+    backgroundColor: COLORS.WHITE,
+    color: "white",
+    borderRadius: 5,
   },
 });
 

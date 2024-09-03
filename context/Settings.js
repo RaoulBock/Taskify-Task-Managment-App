@@ -8,6 +8,13 @@ export const APP_PAGES = {
   },
 };
 
+export const COLORS = {
+  MAIN_BACKGROUND: "#1B1B1B",
+  BACKGROUND: "#313131",
+  BLUE: "#b5cff8",
+  WHITE: "#fff",
+};
+
 export const APP_ICONS = {
   BACK: (
     <Ionicons

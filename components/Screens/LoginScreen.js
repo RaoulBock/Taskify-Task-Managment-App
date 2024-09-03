@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
   },
   forgotBtn: {
     marginBottom: 20,
+    marginTop: 20,
   },
 });
 
