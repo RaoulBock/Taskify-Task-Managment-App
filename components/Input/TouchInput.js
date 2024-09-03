@@ -2,16 +2,25 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { APP_ICONS } from "../../context/Settings";
 
-const TouchInput = ({ title, text, style, onPress, icon, error }) => {
+const TouchInput = ({
+  title,
+  text,
+  style,
+  onPress,
+  icon,
+  error,
+  styleTitle,
+  styleText,
+}) => {
   return (
     <View>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, styleTitle]}>{title}</Text>
       <TouchableOpacity
         activeOpacity={0.8}
         style={[styles.touchInput, style, error ? styles.inputError : null]}
         onPress={onPress}
       >
-        <Text style={styles.text}>{text}</Text>
+        <Text style={[styles.text, styleText]}>{text}</Text>
         <Text>{icon}</Text>
       </TouchableOpacity>
       {error && <Text style={styles.errorText}>{error}</Text>}

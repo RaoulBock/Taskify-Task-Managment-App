@@ -18,6 +18,7 @@ const AppProvider = ({ children }) => {
   const [priorityData, setPropertyData] = React.useState();
   const [taskLocalData, setTaskLocalData] = React.useState([]);
   const [specTaskData, setSpecTaskData] = React.useState();
+  const [specTaskEditVisable, setSpecTaskEditVisable] = React.useState(false);
 
   return (
     <AppContext.Provider
@@ -40,6 +41,8 @@ const AppProvider = ({ children }) => {
         setTaskLocalData,
         specTaskData,
         setSpecTaskData,
+        specTaskEditVisable,
+        setSpecTaskEditVisable,
       }}
     >
       {children}

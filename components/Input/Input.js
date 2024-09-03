@@ -17,10 +17,11 @@ const Input = ({
   numberOfLines,
   style,
   error,
+  styleTitle,
 }) => {
   return (
     <View style={styles.outline}>
-      <Text style={[styles.title, error ? styles.errorText : null]}>
+      <Text style={[styles.title, error ? styles.errorText : null, styleTitle]}>
         {title}
       </Text>
       <TextInput

@@ -6,14 +6,24 @@ import {
   Platform,
   StatusBar,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { AppContext } from "../../context/AppProvider";
 import Nav from "../Nav/Nav";
 import { APP_ICONS, APP_PAGES, COLORS } from "../../context/Settings";
 import Button from "../Button/Button";
+import Models from "../Models/Models";
+import SpecEditTaskView from "../Views/SpecEditTaskView";
+
+const { width, height } = Dimensions.get("window");
 
 const SpecTaskScreen = () => {
-  const { specTaskData: taskData, setNavPage } = React.useContext(AppContext);
+  const {
+    specTaskData: taskData,
+    setNavPage,
+    specTaskEditVisable,
+    setSpecTaskEditVisable,
+  } = React.useContext(AppContext);
 
   const [showFullText, setShowFullText] = React.useState(false);
 
@@ -22,20 +32,29 @@ const SpecTaskScreen = () => {
   };
 
   const renderDescription = () => {
-    if (taskData.description.length <= 80 || showFullText) {
+    if (taskData.description.length <= 100 || showFullText) {
       return taskData.description;
     }
-    return `${taskData.description.slice(0, 80)}...`;
+    return `${taskData.description.slice(0, 100)} ...`;
   };
 
   console.log(taskData);
   return (
     <View style={styles.outline}>
+      {specTaskEditVisable && (
+        <Models
+          visible={specTaskEditVisable}
+          onClose={setSpecTaskEditVisable}
+          children={<SpecEditTaskView taskData={taskData} />}
+          customHeight={height / 1.5}
+        />
+      )}
       <Nav
         title={taskData.title}
         icon={APP_ICONS.BACK}
         iconTwo={APP_ICONS.PENCIL}
         onPress={() => setNavPage(APP_PAGES.APP.HOME)}
+        onPressTwo={() => setSpecTaskEditVisable(true)}
       />
       <View style={{ flex: 1 }}>
         <Text style={styles.taskDescription}>{renderDescription()}</Text>
@@ -63,7 +82,7 @@ const SpecTaskScreen = () => {
           </View>
         </View>
       </View>
-      <Button
+      {/* <Button
         title={"Add a subtask ✏️"}
         style={{
           backgroundColor: COLORS.MAIN_BACKGROUND,
@@ -72,7 +91,7 @@ const SpecTaskScreen = () => {
           marginBottom: 16,
         }}
         styleText={{ color: COLORS.WHITE }}
-      />
+      /> */}
       <Button title={"Mark as complete ✅"} />
     </View>
   );

@@ -2,12 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { AppContext } from "../../context/AppProvider";
 
-const PriorityCard = ({ title, style, data, error }) => {
+const PriorityCard = ({ title, style, data, error, styleTitle, styleText }) => {
   const { priorityData, setPropertyData } = React.useContext(AppContext);
 
   return (
     <View>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, styleTitle]}>{title}</Text>
       {data && (
         <View style={[styles.outline]}>
           {data.map((e, i) => {
@@ -22,7 +22,7 @@ const PriorityCard = ({ title, style, data, error }) => {
                 onPress={() => setPropertyData(e)}
                 key={i}
               >
-                <Text style={styles.text}>{e}</Text>
+                <Text style={[styles.text, styleText]}>{e}</Text>
               </TouchableOpacity>
             );
           })}
