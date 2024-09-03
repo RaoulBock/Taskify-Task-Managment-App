@@ -26,7 +26,7 @@ const CalenderView = () => {
 
   React.useEffect(() => {
     console.log("Selected date:", selectedDate.format("MMMM Do YYYY"));
-    setDueDateData(selectedDate.format("MMMM Do YYYY"));
+    setDueDateData(selectedDate.format("DD MMM"));
   }, [selectedDate]);
 
   const generateDaysInMonth = () => {

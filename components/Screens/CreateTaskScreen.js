@@ -46,6 +46,7 @@ const CreateTaskScreen = () => {
   const [priorityDataTaskError, setPriorityDataTaskError] = React.useState("");
 
   const handleSave = async () => {
+    console.log("Waiting");
     let isValid = true;
     Keyboard.dismiss();
 
@@ -70,12 +71,12 @@ const CreateTaskScreen = () => {
       setDueDateTaskError("");
     }
 
-    if (!clockData) {
-      setClockDataTaskError("Estimate time is required");
-      isValid = false;
-    } else {
-      setClockDataTaskError("");
-    }
+    // if (!clockData) {
+    //   setClockDataTaskError("Estimate time is required");
+    //   isValid = false;
+    // } else {
+    //   setClockDataTaskError("");
+    // }
 
     if (!priorityData) {
       setPriorityDataTaskError("Estimate time is required");
@@ -170,7 +171,7 @@ const CreateTaskScreen = () => {
               error={dueDateTaskError}
             />
           </View>
-          <View style={styles.formCtrl}>
+          {/* <View style={styles.formCtrl}>
             <TouchInput
               title={"Estimate task time"}
               style={{ width: width / 3 }}
@@ -179,7 +180,7 @@ const CreateTaskScreen = () => {
               icon={APP_ICONS.CLOCK}
               error={clockDataTaskError}
             />
-          </View>
+          </View> */}
         </View>
         <View>
           <PriorityCard
