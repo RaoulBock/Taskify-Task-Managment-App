@@ -11,7 +11,9 @@ const Nav = ({ icon, title, iconTwo, style, onPress, onPressTwo }) => {
       >
         <Text>{icon}</Text>
       </TouchableOpacity>
-      <Text style={[styles.navText, style]}>{title}</Text>
+      <Text numberOfLines={1} style={[styles.navText, style, styles.title]}>
+        {title}
+      </Text>
       <TouchableOpacity
         activeOpacity={0.8}
         style={styles.btn}
@@ -40,6 +42,11 @@ const styles = StyleSheet.create({
   navText: {
     color: "#fff",
     fontWeight: "500",
+  },
+  title: {
+    flex: 1, // Allow the title to grow and shrink
+    textAlign: "center", // Center the text in its allocated space
+    marginHorizontal: 10, // Add margin to prevent collision with icons
   },
 });
 
