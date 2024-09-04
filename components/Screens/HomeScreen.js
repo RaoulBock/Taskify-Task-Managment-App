@@ -111,30 +111,28 @@ const HomeScreen = () => {
         </ScrollView>
       </View>
 
-      <View>
-        {/* <Text style={styles.tasksHeader}>Tasks for {selectedDate}</Text> */}
-        <ScrollView>
-          {filteredDataDueToday.length > 0 ? (
-            filteredDataDueToday.map((e, i) => (
-              <Card
-                key={i}
-                title={e.title}
-                description={e.description}
-                priority={e.priority}
-                dueDate={e.dueDate}
-                style={{ backgroundColor: e.color, marginBottom: 10 }}
-                onPress={() => {
-                  setSpecTaskData(e);
-                  setNavPage(APP_PAGES.APP.SPECTASK);
-                }}
-                isCompleted={e.isCompleted} // Pass the isCompleted property
-              />
-            ))
-          ) : (
-            <Text style={styles.noTasks}>No tasks for {selectedDate}!</Text>
-          )}
-        </ScrollView>
-      </View>
+      {/* <Text style={styles.tasksHeader}>Tasks for {selectedDate}</Text> */}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {filteredDataDueToday.length > 0 ? (
+          filteredDataDueToday.map((e, i) => (
+            <Card
+              key={i}
+              title={e.title}
+              description={e.description}
+              priority={e.priority}
+              dueDate={e.dueDate}
+              style={{ backgroundColor: e.color, marginBottom: 10 }}
+              onPress={() => {
+                setSpecTaskData(e);
+                setNavPage(APP_PAGES.APP.SPECTASK);
+              }}
+              isCompleted={e.isCompleted} // Pass the isCompleted property
+            />
+          ))
+        ) : (
+          <Text style={styles.noTasks}>No tasks for {selectedDate}!</Text>
+        )}
+      </ScrollView>
     </View>
   );
 };
@@ -142,7 +140,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   outline: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    margin: 20,
+    marginHorizontal: 10,
     flex: 1,
   },
   dateText: {

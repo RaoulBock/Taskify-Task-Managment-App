@@ -163,10 +163,14 @@ const SpecTaskScreen = () => {
         </View>
       </View>
 
-      <Button
-        title={"Mark as complete ✅"}
-        onPress={markAsComplete} // Call the mark as complete function
-      />
+      {!isCompleted ? (
+        <Button
+          title={"Mark as complete ✅"}
+          onPress={markAsComplete} // Call the mark as complete function
+        />
+      ) : (
+        <Button title={"Completed ✅"} style={{ backgroundColor: "#16c60c" }} />
+      )}
 
       <Button
         title={"Delete task 🗑️"}
@@ -179,17 +183,19 @@ const SpecTaskScreen = () => {
         styleText={{ color: "#e74c3c" }}
         onPress={confirmDelete} // Call the confirmation function
       />
-      {isCompleted && (
+      {/* {isCompleted && (
         <Text
           style={{
             textAlign: "right",
             fontWeight: "500",
             color: "green", // Or any color you prefer
+            textAlign: "center",
+            marginTop: 10,
           }}
         >
           Completed ✅
         </Text>
-      )}
+      )} */}
     </View>
   );
 };

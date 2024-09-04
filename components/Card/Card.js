@@ -19,8 +19,6 @@ const Card = ({
   onPress,
   isCompleted,
 }) => {
-  const { specTaskData: taskData } = React.useContext(AppContext);
-
   return (
     <TouchableOpacity
       style={[styles.outline, style, { width: width }]}
