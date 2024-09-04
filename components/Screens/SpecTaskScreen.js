@@ -46,7 +46,7 @@ const SpecTaskScreen = () => {
           visible={specTaskEditVisable}
           onClose={setSpecTaskEditVisable}
           children={<SpecEditTaskView taskData={taskData} />}
-          customHeight={height / 1.5}
+          customHeight={height / 2}
         />
       )}
       <Nav
@@ -82,17 +82,19 @@ const SpecTaskScreen = () => {
           </View>
         </View>
       </View>
-      {/* <Button
-        title={"Add a subtask ✏️"}
+
+      <Button title={"Mark as complete ✅"} />
+
+      <Button
+        title={"Delete task 🗑️"}
         style={{
           backgroundColor: COLORS.MAIN_BACKGROUND,
           borderWidth: 1,
-          borderColor: COLORS.WHITE,
-          marginBottom: 16,
+          borderColor: "#e74c3c",
+          marginTop: 16,
         }}
-        styleText={{ color: COLORS.WHITE }}
-      /> */}
-      <Button title={"Mark as complete ✅"} />
+        styleText={{ color: "#e74c3c" }}
+      />
     </View>
   );
 };
