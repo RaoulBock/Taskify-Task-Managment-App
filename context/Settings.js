@@ -74,4 +74,7 @@ export const APP_ICONS = {
   PENCIL: (
     <Ionicons name={"pencil-outline"} style={{ color: "#fff", fontSize: 20 }} />
   ),
+  CAMERA: (
+    <Ionicons name={"camera-outline"} style={{ color: "#fff", fontSize: 20 }} />
+  ),
 };

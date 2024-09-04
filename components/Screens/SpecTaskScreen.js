@@ -203,7 +203,7 @@ const SpecTaskScreen = () => {
 const styles = StyleSheet.create({
   outline: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    margin: 20,
+    margin: 10,
     flex: 1,
   },
   taskDescription: {

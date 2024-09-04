@@ -33,7 +33,7 @@ const handleNotifications = async () => {
       },
       trigger: {
         // Schedule for today at 9 AM
-        hour: 11,
+        hour: 12,
         minute: 0,
         repeats: true,
       },

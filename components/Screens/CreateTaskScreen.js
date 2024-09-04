@@ -19,6 +19,7 @@ import CalenderView from "../Views/CalenderView";
 import ClockVIew from "../Views/ClockVIew";
 import PriorityCard from "../Card/PriorityCard";
 import { getRandomColor } from "../../utils/helpers";
+import Button from "../Button/Button";
 
 const { width, height } = Dimensions.get("window");
 
@@ -172,16 +173,13 @@ const CreateTaskScreen = () => {
               error={dueDateTaskError}
             />
           </View>
-          {/* <View style={styles.formCtrl}>
+          <View style={styles.formCtrl}>
             <TouchInput
-              title={"Estimate task time"}
-              style={{ width: width / 3 }}
-              onPress={() => setClockVisable(true)}
-              text={`${clockData} minutes`}
-              icon={APP_ICONS.CLOCK}
-              error={clockDataTaskError}
+              title={"Images"}
+              style={{ width: width / 2.5 }}
+              icon={APP_ICONS.CAMERA}
             />
-          </View> */}
+          </View>
         </View>
         <View>
           <PriorityCard
@@ -198,7 +196,7 @@ const CreateTaskScreen = () => {
 const styles = StyleSheet.create({
   outline: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    margin: 20,
+    margin: 10,
     flex: 1,
   },
   formCtrl: {
