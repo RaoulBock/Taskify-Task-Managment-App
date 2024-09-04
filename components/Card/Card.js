@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   title: {
     color: "#1d1d1d",
     fontWeight: "700",
-    fontSize: 14,
+    fontSize: 20,
     flex: 1,
   },
   tag: {
