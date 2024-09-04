@@ -1,3 +1,4 @@
+// Card.js
 import React from "react";
 import {
   StyleSheet,
@@ -6,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import moment from "moment";
+import { AppContext } from "../../context/AppProvider";
 
 const Card = ({
   width,
@@ -16,7 +17,10 @@ const Card = ({
   dueDate,
   style,
   onPress,
+  isCompleted,
 }) => {
+  const { specTaskData: taskData } = React.useContext(AppContext);
+
   return (
     <TouchableOpacity
       style={[styles.outline, style, { width: width }]}
@@ -35,6 +39,17 @@ const Card = ({
         </Text>
         <Text style={styles.dueDate}>Due Date:</Text>
         <Text style={styles.date}>{dueDate}</Text>
+        {isCompleted && (
+          <Text
+            style={{
+              textAlign: "right",
+              fontWeight: "700",
+              color: "#1d1d1d", // Or any color you prefer
+            }}
+          >
+            Completed ✅
+          </Text>
+        )}
       </View>
     </TouchableOpacity>
   );

@@ -127,6 +127,7 @@ const HomeScreen = () => {
                   setSpecTaskData(e);
                   setNavPage(APP_PAGES.APP.SPECTASK);
                 }}
+                isCompleted={e.isCompleted} // Pass the isCompleted property
               />
             ))
           ) : (

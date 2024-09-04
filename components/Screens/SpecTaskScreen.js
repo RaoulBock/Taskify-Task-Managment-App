@@ -29,6 +29,9 @@ const SpecTaskScreen = () => {
   } = React.useContext(AppContext);
 
   const [showFullText, setShowFullText] = React.useState(false);
+  const [isCompleted, setIsCompleted] = React.useState(
+    taskData ? taskData.isCompleted : false
+  );
 
   // Toggle between showing full text or truncated text
   const toggleText = () => {
@@ -86,6 +89,34 @@ const SpecTaskScreen = () => {
     );
   };
 
+  // Function to mark task as complete
+  const markAsComplete = async () => {
+    if (!taskData || !taskData.title) {
+      console.error("No task data or task title available for updating.");
+      return;
+    }
+
+    try {
+      // Retrieve existing tasks
+      const existingTasks = await AsyncStorage.getItem("taskData");
+      let taskArray = existingTasks ? JSON.parse(existingTasks) : [];
+
+      // Update the task's completion status
+      taskArray = taskArray.map((task) =>
+        task.title === taskData.title ? { ...task, isCompleted: true } : task
+      );
+
+      // Save the updated array back to AsyncStorage
+      await AsyncStorage.setItem("taskData", JSON.stringify(taskArray));
+
+      // Update the local state
+      setIsCompleted(true);
+      console.log("Task marked as complete");
+    } catch (err) {
+      console.log("Failed to update the task in AsyncStorage:", err);
+    }
+  };
+
   return (
     <View style={styles.outline}>
       {specTaskEditVisable && (
@@ -132,7 +163,10 @@ const SpecTaskScreen = () => {
         </View>
       </View>
 
-      <Button title={"Mark as complete ✅"} />
+      <Button
+        title={"Mark as complete ✅"}
+        onPress={markAsComplete} // Call the mark as complete function
+      />
 
       <Button
         title={"Delete task 🗑️"}
@@ -145,6 +179,17 @@ const SpecTaskScreen = () => {
         styleText={{ color: "#e74c3c" }}
         onPress={confirmDelete} // Call the confirmation function
       />
+      {isCompleted && (
+        <Text
+          style={{
+            textAlign: "right",
+            fontWeight: "500",
+            color: "green", // Or any color you prefer
+          }}
+        >
+          Completed ✅
+        </Text>
+      )}
     </View>
   );
 };

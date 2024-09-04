@@ -93,6 +93,7 @@ const CreateTaskScreen = () => {
         estimatedTime: clockData,
         priority: priorityData,
         color: getRandomColor(),
+        isCompleted: false,
       };
 
       try {
