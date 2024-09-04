@@ -70,6 +70,7 @@ const HomeScreen = () => {
         icon={APP_ICONS.CALENDER}
         iconTwo={APP_ICONS.CREATE}
         onPressTwo={() => setNavPage(APP_PAGES.APP.CREATE)}
+        onPress={() => setNavPage(APP_PAGES.APP.CALENDER)}
       />
       <View>
         <ScrollView

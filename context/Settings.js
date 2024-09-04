@@ -6,6 +6,7 @@ export const APP_PAGES = {
     HOME: "HOME",
     CREATE: "CREATE",
     SPECTASK: "SPECTASK",
+    CALENDER: "CALENDER",
   },
 };
 
