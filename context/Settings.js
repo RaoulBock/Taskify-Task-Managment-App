@@ -78,4 +78,7 @@ export const APP_ICONS = {
   CAMERA: (
     <Ionicons name={"camera-outline"} style={{ color: "#fff", fontSize: 20 }} />
   ),
+  GOOGLE: (
+    <Ionicons name={"logo-google"} style={{ color: "#1d1d1d", fontSize: 20 }} />
+  ),
 };

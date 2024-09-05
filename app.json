@@ -2,6 +2,7 @@
   "expo": {
     "name": "Event Flow",
     "slug": "taskManagement",
+    "scheme": "Auth-Development",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/EF.png",
@@ -27,7 +28,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/EF-icon.png",
+        "foregroundImage": "./assets/EF.png",
         "backgroundColor": "#ffffff"
       }
     },

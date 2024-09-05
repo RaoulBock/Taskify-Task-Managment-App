@@ -1,4 +1,5 @@
-import React from "react";
+// LoginScreen.js
+import React, { Fragment } from "react";
 import {
   Text,
   View,
@@ -7,37 +8,130 @@ import {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
-import { APP_ICONS } from "../../context/Settings";
+import { APP_ICONS, APP_PAGES } from "../../context/Settings";
 import Nav from "../Nav/Nav";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import { AppContext } from "../../context/AppProvider";
+import * as Google from "expo-auth-session/providers/google";
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
+import { generateCode } from "../../utils/helpers";
+
+const CELL_COUNT = 6;
 
 const LoginScreen = () => {
+  const { setNavPage } = React.useContext(AppContext);
+  const [code, setCode] = React.useState("");
+  const [userCode, setUserCode] = React.useState();
+  const [codeSent, setCodeSent] = React.useState(false);
+
+  const ref = useBlurOnFulfill({ value: code, cellCount: CELL_COUNT });
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value: code,
+    setValue: setCode,
+  });
+
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    clientId: Platform.select({
+      ios: "960104458289-epo7dq9vdav2ssd7kruifa58tk19g81g.apps.googleusercontent.com",
+      android:
+        "960104458289-epo7dq9vdav2ssd7kruifa58tk19g81g.apps.googleusercontent.com",
+    }),
+  });
+
+  React.useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token } = response.params;
+      console.log("ID Token:", id_token);
+    }
+  }, [response]);
+
+  const sendSMS = () => {
+    const apiKey = "bqCOSlYBQEWcBx7o8KfPsw=="; // Replace with your actual API key
+    const phoneNumber = "264814954704";
+    const code = generateCode();
+    const message = `Your verification code is: ${code}. Please use this to complete your registration.`;
+
+    const url = `https://platform.clickatell.com/messages/http/send?apiKey=${apiKey}&to=${phoneNumber}&content=${encodeURIComponent(
+      message
+    )}`;
+
+    fetch(url, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Message sent successfully:", data);
+        setCodeSent(true);
+      })
+      .catch((error) => {
+        console.error("Error sending message:", error);
+        setCodeSent(false);
+      });
+  };
+
   return (
     <View style={styles.outline}>
-      <Nav icon={APP_ICONS.BACK} />
+      <Nav
+        icon={APP_ICONS.BACK}
+        onPress={() => setNavPage(APP_PAGES.APP.HOME)}
+      />
       <Text style={styles.header}>Log in to Taskify</Text>
+      <Text style={styles.description}>
+        Log in to access your tasks from anywhere, securely stored in the cloud.
+      </Text>
 
-      <View style={styles.formCtrl}>
-        <Input
-          title={"Email"}
-          placeholder={"someone@something.com"}
-          placeholderTextColor={"#242424"}
+      {codeSent === false ? (
+        <View style={styles.formCtrl}>
+          <Input
+            title={"Phone Number"}
+            placeholder={"(123) 456-7890"}
+            placeholderTextColor={"#242424"}
+          keyboardType='phone-pad'
+          />
+        </View>
+      ) : (
+        <CodeField
+          ref={ref}
+          {...props}
+          value={code}
+          onChangeText={setCode}
+          cellCount={CELL_COUNT}
+          rootStyle={styles.codeFieldRoot}
+          keyboardType="number-pad"
+          textContentType="oneTimeCode"
+          autoComplete={Platform.select({
+            android: "sms-otp",
+            default: "one-time-code",
+          })}
+          testID="my-code-input"
+          renderCell={({ index, symbol, isFocused }) => (
+            <Fragment key={index}>
+              <View
+                onLayout={getCellOnLayoutHandler(index)}
+                key={index}
+                style={[styles.cellRoot, isFocused && styles.focusCell]}
+              >
+                <Text style={styles.cellText}>
+                  {symbol || (isFocused ? <Cursor /> : null)}
+                </Text>
+              </View>
+              {index === 2 ? (
+                <View key={`separator-${index}`} style={styles.separator} />
+              ) : null}
+            </Fragment>
+          )}
         />
-      </View>
-      <View>
-        <Input
-          title={"Password"}
-          placeholder={"••••••••"}
-          placeholderTextColor={"#242424"}
-          secureTextEntry={true}
-        />
-      </View>
-      <TouchableOpacity style={styles.forgotBtn} activeOpacity={0.8}>
-        <Text style={styles.forgotText}>Forgot Password ?</Text>
-      </TouchableOpacity>
+      )}
 
-      <Button title={"Login"} />
+      <Button title={"Login with phone number"} onPress={sendSMS} />
+      <Text style={styles.seperator}>or</Text>
+      <Button title={APP_ICONS.GOOGLE} onPress={() => promptAsync()} />
     </View>
   );
 };
@@ -45,15 +139,15 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   outline: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    margin: 20,
+    margin: 10,
   },
   btn: {
     backgroundColor: "#242424",
   },
   header: {
     color: "#fff",
-    marginVertical: 18,
     fontSize: 28,
+    marginTop: 16,
   },
   forgotText: {
     color: "#a2fe65",
@@ -63,8 +157,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   forgotBtn: {
+    marginVertical: 16,
+  },
+  description: {
+    color: "#6B7280",
+    fontSize: 14,
     marginBottom: 20,
-    marginTop: 20,
+  },
+  seperator: {
+    color: "white",
+    textAlign: "center",
+    marginVertical: 16,
   },
 });
 

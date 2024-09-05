@@ -67,10 +67,10 @@ const HomeScreen = () => {
     <View style={styles.outline}>
       <Nav
         title={"Home"}
-        icon={APP_ICONS.CALENDER}
+        icon={APP_ICONS.PROFILE}
         iconTwo={APP_ICONS.CREATE}
         onPressTwo={() => setNavPage(APP_PAGES.APP.CREATE)}
-        onPress={() => setNavPage(APP_PAGES.APP.CALENDER)}
+        onPress={() => setNavPage(APP_PAGES.APP.LOGIN)}
       />
       <View>
         <ScrollView
