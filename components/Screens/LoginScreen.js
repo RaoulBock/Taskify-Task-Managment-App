@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { CLICK_A_TELL_API_KEY } from "@env";
+import { CLICK_A_TELL_API_KEY, GOOGLE_AUTH_CLIENT_ID } from "@env";
 import {
   Text,
   View,
@@ -40,9 +40,8 @@ const LoginScreen = () => {
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     clientId: Platform.select({
-      ios: "960104458289-epo7dq9vdav2ssd7kruifa58tk19g81g.apps.googleusercontent.com",
-      android:
-        "960104458289-epo7dq9vdav2ssd7kruifa58tk19g81g.apps.googleusercontent.com",
+      ios: GOOGLE_AUTH_CLIENT_ID,
+      android: GOOGLE_AUTH_CLIENT_ID,
     }),
   });
 
