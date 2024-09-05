@@ -24,6 +24,7 @@
     "react-native": "0.74.3",
     "react-native-confirmation-code-field": "^7.4.0",
     "react-native-date-picker": "^5.0.4",
+    "react-native-dotenv": "^3.4.11",
     "react-native-vector-icons": "^10.1.0",
     "uuid": "^10.0.0"
   },
