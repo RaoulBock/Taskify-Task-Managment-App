@@ -10,6 +10,7 @@ import HomeScreen from "./components/Screens/HomeScreen";
 import CreateTaskScreen from "./components/Screens/CreateTaskScreen";
 import SpecTaskScreen from "./components/Screens/SpecTaskScreen";
 import CalenderScreen from "./components/Screens/CalenderScreen";
+import VerifyUserScreen from "./components/Screens/VerifyUserScreen";
 
 // Function to request permissions and schedule notifications
 const handleNotifications = async () => {
@@ -83,6 +84,7 @@ const NavWrapper = () => {
       {navPage === APP_PAGES.APP.CREATE && <CreateTaskScreen />}
       {navPage === APP_PAGES.APP.SPECTASK && <SpecTaskScreen />}
       {navPage === APP_PAGES.APP.CALENDER && <CalenderScreen />}
+      {navPage === APP_PAGES.APP.VERIFY_USER && <VerifyUserScreen />}
     </View>
   );
 };
