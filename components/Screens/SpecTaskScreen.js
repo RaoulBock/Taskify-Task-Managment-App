@@ -119,8 +119,6 @@ const SpecTaskScreen = () => {
     }
   };
 
-  console.log(taskData.images);
-
   return (
     <View style={styles.outline}>
       {specTaskEditVisable && (
@@ -128,7 +126,7 @@ const SpecTaskScreen = () => {
           visible={specTaskEditVisable}
           onClose={setSpecTaskEditVisable}
           children={<SpecEditTaskView taskData={taskData} />}
-          customHeight={height / 2}
+          customHeight={height / 1}
         />
       )}
       <Nav
@@ -154,15 +152,19 @@ const SpecTaskScreen = () => {
       </ScrollView>
 
       <View>
-        <ScrollView
-          horizontal
-          style={styles.imageContainer}
-          showsHorizontalScrollIndicator={false}
-        >
-          {taskData.images.map((uri, index) => (
-            <Image key={index} source={{ uri }} style={styles.image} />
-          ))}
-        </ScrollView>
+        {taskData && taskData.images && taskData.images.length > 0 && (
+          <ScrollView
+            horizontal
+            style={styles.imageContainer}
+            showsHorizontalScrollIndicator={false}
+          >
+            {taskData.images.map((uri, index) => (
+              <TouchableOpacity key={index} activeOpacity={0.8}>
+                <Image source={{ uri }} style={styles.image} />
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        )}
 
         <View style={styles.mainGrid}>
           <View style={styles.grid}>
@@ -204,20 +206,6 @@ const SpecTaskScreen = () => {
         styleText={{ color: "#e74c3c" }}
         onPress={confirmDelete} // Call the confirmation function
       />
-
-      {/* {isCompleted && (
-        <Text
-          style={{
-            textAlign: "right",
-            fontWeight: "500",
-            color: "green", // Or any color you prefer
-            textAlign: "center",
-            marginTop: 10,
-          }}
-        >
-          Completed ✅
-        </Text>
-      )} */}
     </View>
   );
 };
@@ -256,12 +244,16 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontWeight: "500",
     textAlign: "center",
+    marginBottom: 16,
   },
   image: {
     width: 100,
     height: 100,
     marginRight: 10,
     borderRadius: 8,
+  },
+  imageContainer: {
+    marginVertical: 16,
   },
 });
 
