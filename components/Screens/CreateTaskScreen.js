@@ -8,6 +8,8 @@ import {
   Dimensions,
   Keyboard,
   Alert,
+  Image,
+  ScrollView,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from "expo-image-picker";
@@ -47,7 +49,9 @@ const CreateTaskScreen = () => {
   const [dueDateTaskError, setDueDateTaskError] = React.useState("");
   const [clockDataTaskError, setClockDataTaskError] = React.useState("");
   const [priorityDataTaskError, setPriorityDataTaskError] = React.useState("");
-  const [selectedImage, setSelectedImage] = React.useState(null); // State for storing the selected image
+  const [selectedImages, setSelectedImages] = React.useState([]); // Array for storing selected images
+
+  console.log(selectedImages);
 
   const handleImagePicker = async () => {
     Alert.alert("Select Image", "Choose an option to select an image", [
@@ -61,7 +65,10 @@ const CreateTaskScreen = () => {
             quality: 1,
           });
           if (!result.cancelled) {
-            setSelectedImage(result.uri);
+            setSelectedImages((prevImages) => [
+              ...prevImages,
+              result.assets[0].uri,
+            ]);
           }
         },
       },
@@ -75,7 +82,10 @@ const CreateTaskScreen = () => {
             quality: 1,
           });
           if (!result.cancelled) {
-            setSelectedImage(result.uri);
+            setSelectedImages((prevImages) => [
+              ...prevImages,
+              result.assets[0].uri,
+            ]);
           }
         },
       },
@@ -119,6 +129,8 @@ const CreateTaskScreen = () => {
       setPriorityDataTaskError("");
     }
 
+    console.log(selectedImages);
+
     if (isValid) {
       const newTask = {
         title: titleTask,
@@ -128,7 +140,7 @@ const CreateTaskScreen = () => {
         priority: priorityData,
         color: getRandomSoftColor(),
         isCompleted: false,
-        image: selectedImage, // Add image to the new task
+        images: selectedImages, // Add images to the new task
       };
 
       try {
@@ -223,6 +235,15 @@ const CreateTaskScreen = () => {
             error={priorityDataTaskError}
           />
         </View>
+        <ScrollView
+          horizontal
+          style={styles.imageContainer}
+          showsHorizontalScrollIndicator={false}
+        >
+          {selectedImages.map((uri, index) => (
+            <Image key={index} source={{ uri }} style={styles.image} />
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -240,6 +261,16 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  imageContainer: {
+    marginTop: 20,
+    height: 100,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginRight: 10,
+    borderRadius: 8,
   },
 });
 

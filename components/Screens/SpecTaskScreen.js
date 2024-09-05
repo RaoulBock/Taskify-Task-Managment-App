@@ -9,6 +9,7 @@ import {
   Dimensions,
   Alert,
   ScrollView,
+  Image,
 } from "react-native";
 import { AppContext } from "../../context/AppProvider";
 import Nav from "../Nav/Nav";
@@ -118,6 +119,8 @@ const SpecTaskScreen = () => {
     }
   };
 
+  console.log(taskData.images);
+
   return (
     <View style={styles.outline}>
       {specTaskEditVisable && (
@@ -149,19 +152,34 @@ const SpecTaskScreen = () => {
             )}
         </View>
       </ScrollView>
-      <View style={styles.mainGrid}>
-        <View style={styles.grid}>
-          <Text>{APP_ICONS.PROFILE}</Text>
-          <View>
-            <Text style={[styles.text, styles.assigedTo]}>Assigned to</Text>
-            <Text style={styles.text}>Me</Text>
+
+      <View>
+        <ScrollView
+          horizontal
+          style={styles.imageContainer}
+          showsHorizontalScrollIndicator={false}
+        >
+          {taskData.images.map((uri, index) => (
+            <Image key={index} source={{ uri }} style={styles.image} />
+          ))}
+        </ScrollView>
+
+        <View style={styles.mainGrid}>
+          <View style={styles.grid}>
+            <Text>{APP_ICONS.PROFILE}</Text>
+            <View>
+              <Text style={[styles.text, styles.assigedTo]}>Assigned to</Text>
+              <Text style={styles.text}>Me</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.grid}>
-          <Text>{APP_ICONS.CALENDER}</Text>
-          <View>
-            <Text style={[styles.text, styles.assigedTo]}>Due date</Text>
-            <Text style={styles.text}>{taskData ? taskData.dueDate : ""}</Text>
+          <View style={styles.grid}>
+            <Text>{APP_ICONS.CALENDER}</Text>
+            <View>
+              <Text style={[styles.text, styles.assigedTo]}>Due date</Text>
+              <Text style={styles.text}>
+                {taskData ? taskData.dueDate : ""}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -186,6 +204,7 @@ const SpecTaskScreen = () => {
         styleText={{ color: "#e74c3c" }}
         onPress={confirmDelete} // Call the confirmation function
       />
+
       {/* {isCompleted && (
         <Text
           style={{
@@ -231,12 +250,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 16,
+    marginVertical: 16,
   },
   seeMore: {
     color: COLORS.WHITE,
     fontWeight: "500",
     textAlign: "center",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginRight: 10,
+    borderRadius: 8,
   },
 });
 
