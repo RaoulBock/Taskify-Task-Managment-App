@@ -7,8 +7,10 @@ import {
   StatusBar,
   Dimensions,
   Keyboard,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from "expo-image-picker";
 import Nav from "../Nav/Nav";
 import { APP_ICONS, APP_PAGES } from "../../context/Settings";
 import Input from "../Input/Input";
@@ -18,7 +20,7 @@ import Models from "../Models/Models";
 import CalenderView from "../Views/CalenderView";
 import ClockVIew from "../Views/ClockVIew";
 import PriorityCard from "../Card/PriorityCard";
-import { getRandomColor } from "../../utils/helpers";
+import { getRandomSoftColor } from "../../utils/helpers";
 import Button from "../Button/Button";
 
 const { width, height } = Dimensions.get("window");
@@ -45,6 +47,44 @@ const CreateTaskScreen = () => {
   const [dueDateTaskError, setDueDateTaskError] = React.useState("");
   const [clockDataTaskError, setClockDataTaskError] = React.useState("");
   const [priorityDataTaskError, setPriorityDataTaskError] = React.useState("");
+  const [selectedImage, setSelectedImage] = React.useState(null); // State for storing the selected image
+
+  const handleImagePicker = async () => {
+    Alert.alert("Select Image", "Choose an option to select an image", [
+      {
+        text: "Camera",
+        onPress: async () => {
+          const result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+          });
+          if (!result.cancelled) {
+            setSelectedImage(result.uri);
+          }
+        },
+      },
+      {
+        text: "Gallery",
+        onPress: async () => {
+          const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+          });
+          if (!result.cancelled) {
+            setSelectedImage(result.uri);
+          }
+        },
+      },
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+    ]);
+  };
 
   const handleSave = async () => {
     console.log("Waiting");
@@ -72,15 +112,8 @@ const CreateTaskScreen = () => {
       setDueDateTaskError("");
     }
 
-    // if (!clockData) {
-    //   setClockDataTaskError("Estimate time is required");
-    //   isValid = false;
-    // } else {
-    //   setClockDataTaskError("");
-    // }
-
     if (!priorityData) {
-      setPriorityDataTaskError("Estimate time is required");
+      setPriorityDataTaskError("Priority is required");
       isValid = false;
     } else {
       setPriorityDataTaskError("");
@@ -93,8 +126,9 @@ const CreateTaskScreen = () => {
         dueDate: dueDateData,
         estimatedTime: clockData,
         priority: priorityData,
-        color: getRandomColor(),
+        color: getRandomSoftColor(),
         isCompleted: false,
+        image: selectedImage, // Add image to the new task
       };
 
       try {
@@ -152,7 +186,7 @@ const CreateTaskScreen = () => {
         </View>
         <View style={styles.formCtrl}>
           <Input
-            title={"Desciprion"}
+            title={"Description"}
             placeholder={"Enter task description"}
             placeholderTextColor={"#242424"}
             multiline
@@ -178,6 +212,7 @@ const CreateTaskScreen = () => {
               title={"Images"}
               style={{ width: width / 2.5 }}
               icon={APP_ICONS.CAMERA}
+              onPress={handleImagePicker}
             />
           </View>
         </View>

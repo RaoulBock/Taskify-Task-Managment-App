@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Alert,
+  ScrollView,
 } from "react-native";
 import { AppContext } from "../../context/AppProvider";
 import Nav from "../Nav/Nav";
@@ -134,18 +135,20 @@ const SpecTaskScreen = () => {
         onPress={() => setNavPage(APP_PAGES.APP.HOME)}
         onPressTwo={() => setSpecTaskEditVisable(true)}
       />
-      <View style={{ flex: 1 }}>
-        <Text style={styles.taskDescription}>{renderDescription()}</Text>
-        {taskData &&
-          taskData.description &&
-          taskData.description.length > 50 && (
-            <TouchableOpacity onPress={toggleText} activeOpacity={0.8}>
-              <Text style={styles.seeMore}>
-                {showFullText ? "^ See less" : "˅ See more"}
-              </Text>
-            </TouchableOpacity>
-          )}
-      </View>
+      <ScrollView>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.taskDescription}>{renderDescription()}</Text>
+          {taskData &&
+            taskData.description &&
+            taskData.description.length > 50 && (
+              <TouchableOpacity onPress={toggleText} activeOpacity={0.8}>
+                <Text style={styles.seeMore}>
+                  {showFullText ? "^ See less" : "˅ See more"}
+                </Text>
+              </TouchableOpacity>
+            )}
+        </View>
+      </ScrollView>
       <View style={styles.mainGrid}>
         <View style={styles.grid}>
           <Text>{APP_ICONS.PROFILE}</Text>
