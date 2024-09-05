@@ -9,7 +9,7 @@ export const AppContext = React.createContext({
 });
 
 const AppProvider = ({ children }) => {
-  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.HOME);
+  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.VERIFY_USER);
   const [loggedInUser, setLoggedInUser] = React.useState();
   const [calenderVisable, setCalenderVisable] = React.useState(false);
   const [dueDateData, setDueDateData] = React.useState();

@@ -75,6 +75,9 @@ const LoginScreen = () => {
       });
 
       if (!response.error) {
+        setNavPage(APP_PAGES.APP.VERIFY_USER);
+      } else {
+        console.log(response.error);
       }
 
       console.log(response);
