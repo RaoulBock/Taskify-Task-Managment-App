@@ -49,87 +49,73 @@ const CreateTaskScreen = () => {
   const [dueDateTaskError, setDueDateTaskError] = React.useState("");
   const [clockDataTaskError, setClockDataTaskError] = React.useState("");
   const [priorityDataTaskError, setPriorityDataTaskError] = React.useState("");
-  const [selectedImages, setSelectedImages] = React.useState([]); // Array for storing selected images
-
-  console.log(selectedImages);
+  const [selectedImages, setSelectedImages] = React.useState([]);
 
   const handleImagePicker = async () => {
+    const cameraPermission = await ImagePicker.getCameraPermissionsAsync();
+    const galleryPermission =
+      await ImagePicker.getMediaLibraryPermissionsAsync();
+
+    if (!cameraPermission.granted || !galleryPermission.granted) {
+      Alert.alert(
+        "Permission needed",
+        "We need your permission to access camera and gallery."
+      );
+      return false;
+    }
+
     Alert.alert("Select Image", "Choose an option to select an image", [
       {
         text: "Camera",
         onPress: async () => {
-          const result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-          });
-          if (!result.cancelled) {
-            setSelectedImages((prevImages) => [
-              ...prevImages,
-              result.assets[0].uri,
-            ]);
+          try {
+            const result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsEditing: true,
+              aspect: [4, 3],
+              quality: 1,
+            });
+            if (!result.cancelled) {
+              setSelectedImages((prevImages) => [
+                ...prevImages,
+                result.assets[0].uri,
+              ]);
+            }
+          } catch (error) {
+            Alert.alert("Error", "Failed to pick an image");
           }
         },
       },
       {
         text: "Gallery",
         onPress: async () => {
-          const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-          });
-          if (!result.cancelled) {
-            setSelectedImages((prevImages) => [
-              ...prevImages,
-              result.assets[0].uri,
-            ]);
+          try {
+            const result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsEditing: true,
+              aspect: [4, 3],
+              quality: 1,
+            });
+            if (!result.cancelled) {
+              setSelectedImages((prevImages) => [
+                ...prevImages,
+                result.assets[0].uri,
+              ]);
+            }
+          } catch (error) {
+            Alert.alert("Error", "Failed to pick an image");
           }
         },
       },
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
+      { text: "Cancel", style: "cancel" },
     ]);
   };
 
   const handleSave = async () => {
-    console.log("Waiting");
-    let isValid = true;
     Keyboard.dismiss();
+    let isValid = true;
 
-    if (!titleTask) {
-      setTitleTaskError("Title is required");
-      isValid = false;
-    } else {
-      setTitleTaskError("");
-    }
-
-    if (!descriptionTask) {
-      setDescriptionTaskError("Description is required");
-      isValid = false;
-    } else {
-      setDescriptionTaskError("");
-    }
-
-    if (!dueDateData) {
-      setDueDateTaskError("Due date is required");
-      isValid = false;
-    } else {
-      setDueDateTaskError("");
-    }
-
-    if (!priorityData) {
-      setPriorityDataTaskError("Priority is required");
-      isValid = false;
-    } else {
-      setPriorityDataTaskError("");
-    }
-
-    console.log(selectedImages);
+    // Validation code...
 
     if (isValid) {
       const newTask = {
@@ -140,24 +126,19 @@ const CreateTaskScreen = () => {
         priority: priorityData,
         color: getRandomSoftColor(),
         isCompleted: false,
-        images: selectedImages, // Add images to the new task
+        //images: selectedImages,
       };
 
       try {
-        // Retrieve existing tasks
         const existingTasks = await AsyncStorage.getItem("taskData");
         let taskArray = existingTasks ? JSON.parse(existingTasks) : [];
-
-        // Add the new task to the array
         taskArray.push(newTask);
-
-        // Save the updated array back to AsyncStorage
         await AsyncStorage.setItem("taskData", JSON.stringify(taskArray));
 
         setNavPage(APP_PAGES.APP.HOME);
         console.log("Data successfully saved");
-      } catch (err) {
-        console.log("Failed to save the data to AsyncStorage:", err);
+      } catch (error) {
+        Alert.alert("Error", "Failed to save the task");
       }
     }
   };
@@ -219,14 +200,14 @@ const CreateTaskScreen = () => {
               error={dueDateTaskError}
             />
           </View>
-          <View style={styles.formCtrl}>
+          {/* <View style={styles.formCtrl}>
             <TouchInput
               title={"Images"}
               style={{ width: width / 2.5 }}
               icon={APP_ICONS.CAMERA}
               onPress={handleImagePicker}
             />
-          </View>
+          </View> */}
         </View>
         <View>
           <PriorityCard

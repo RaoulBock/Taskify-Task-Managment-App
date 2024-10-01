@@ -9,7 +9,7 @@ export const AppContext = React.createContext({
 });
 
 const AppProvider = ({ children }) => {
-  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.VERIFY_USER);
+  const [navPage, setNavPage] = React.useState(APP_PAGES.APP.HOME);
   const [loggedInUser, setLoggedInUser] = React.useState();
   const [calenderVisable, setCalenderVisable] = React.useState(false);
   const [dueDateData, setDueDateData] = React.useState();
@@ -19,6 +19,7 @@ const AppProvider = ({ children }) => {
   const [taskLocalData, setTaskLocalData] = React.useState([]);
   const [specTaskData, setSpecTaskData] = React.useState();
   const [specTaskEditVisable, setSpecTaskEditVisable] = React.useState(false);
+  const [userPhoneNumber, setUserPhoneNumber] = React.useState("");
 
   return (
     <AppContext.Provider
@@ -43,6 +44,8 @@ const AppProvider = ({ children }) => {
         setSpecTaskData,
         specTaskEditVisable,
         setSpecTaskEditVisable,
+        userPhoneNumber,
+        setUserPhoneNumber,
       }}
     >
       {children}

@@ -130,14 +130,17 @@ const SpecTaskScreen = () => {
         />
       )}
       <Nav
-        title={taskData ? taskData.title : "Task Details"}
+        //title={taskData ? taskData.title : "Task Details"}
         icon={APP_ICONS.BACK}
-        iconTwo={APP_ICONS.PENCIL}
+        //iconTwo={APP_ICONS.PENCIL}
         onPress={() => setNavPage(APP_PAGES.APP.HOME)}
-        onPressTwo={() => setSpecTaskEditVisable(true)}
+        // onPressTwo={() => setSpecTaskEditVisable(true)}
       />
       <ScrollView>
         <View style={{ flex: 1 }}>
+          <Text style={styles.title}>
+            {taskData ? taskData.title : "Task Details"}
+          </Text>
           <Text style={styles.taskDescription}>{renderDescription()}</Text>
           {taskData &&
             taskData.description &&
@@ -152,7 +155,7 @@ const SpecTaskScreen = () => {
       </ScrollView>
 
       <View>
-        {taskData && taskData.images && taskData.images.length > 0 && (
+        {/* {taskData && taskData.images && taskData.images.length > 0 && (
           <ScrollView
             horizontal
             style={styles.imageContainer}
@@ -164,7 +167,7 @@ const SpecTaskScreen = () => {
               </TouchableOpacity>
             ))}
           </ScrollView>
-        )}
+        )} */}
 
         <View style={styles.mainGrid}>
           <View style={styles.grid}>
@@ -217,10 +220,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   taskDescription: {
-    fontWeight: "500",
+    fontWeight: "100",
     color: "white",
     marginVertical: 16,
-    fontSize: 26,
+    fontSize: 17,
   },
   grid: {
     flexDirection: "row",
@@ -254,6 +257,11 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     marginVertical: 16,
+  },
+  title: {
+    fontSize: 28,
+    color: '#e7e7e7',
+    marginTop: 16
   },
 });
 

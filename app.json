@@ -25,11 +25,17 @@
     },
     "ios": {
       "supportsTablet": true
+      // "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/EF.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleSignIn": {
+          "certificateHash": "<YOUR_ANDROID_CERTIFICATE_HASH>"
+        }
       }
     },
     "web": {

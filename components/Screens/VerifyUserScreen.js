@@ -13,7 +13,8 @@ import {
 const CELL_COUNT = 6;
 
 const VerifyUserScreen = () => {
-  const { setNavPage } = React.useContext(AppContext);
+  const { setNavPage, userPhoneNumber, setUserPhoneNumber } =
+    React.useContext(AppContext);
   const [code, setCode] = React.useState("");
   const ref = useBlurOnFulfill({ value: code, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -49,7 +50,7 @@ const VerifyUserScreen = () => {
   return (
     <View style={styles.outline}>
       <Nav
-        title={"Verify your account"}
+        title={`Code has been sent to ${userPhoneNumber}`}
         icon={APP_ICONS.BACK}
         onPress={() => setNavPage(APP_PAGES.APP.LOGIN)}
       />
