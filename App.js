@@ -34,8 +34,8 @@ const handleNotifications = async () => {
         priority: Notifications.AndroidNotificationPriority.HIGH, // Optional for Android
       },
       trigger: {
-        // Schedule for today at 9 AM
-        hour: 12,
+        // Schedule for today at 12 PM
+        hour: 9,
         minute: 0,
         repeats: true,
       },
