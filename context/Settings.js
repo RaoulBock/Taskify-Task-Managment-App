@@ -1,13 +1,10 @@
-import { Ionicons, AntDesign } from "react-native-vector-icons";
+import { Ionicons } from "react-native-vector-icons";
 
 export const APP_PAGES = {
   APP: {
-    LOGIN: "LOGIN",
     HOME: "HOME",
     CREATE: "CREATE",
     SPECTASK: "SPECTASK",
-    CALENDER: "CALENDER",
-    VERIFY_USER: "VERIFY_USER",
   },
 };
 

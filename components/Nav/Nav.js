@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1, // Allow the title to grow and shrink
-    textAlign: "center", // Center the text in its allocated space
+    // textAlign: "center", // Center the text in its allocated space
     marginHorizontal: 10, // Add margin to prevent collision with icons
     fontSize: 18,
   },

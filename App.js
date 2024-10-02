@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
 import AppProvider, { AppContext } from "./context/AppProvider";
 import { APP_PAGES, COLORS } from "./context/Settings";
-import LoginScreen from "./components/Screens/LoginScreen";
 import HomeScreen from "./components/Screens/HomeScreen";
 import CreateTaskScreen from "./components/Screens/CreateTaskScreen";
 import SpecTaskScreen from "./components/Screens/SpecTaskScreen";
-import CalenderScreen from "./components/Screens/CalenderScreen";
-import VerifyUserScreen from "./components/Screens/VerifyUserScreen";
 
 // Function to request permissions and schedule notifications
 const handleNotifications = async () => {
@@ -79,12 +75,9 @@ const NavWrapper = () => {
         barStyle={"light-content"}
         style="light"
       />
-      {navPage === APP_PAGES.APP.LOGIN && <LoginScreen />}
       {navPage === APP_PAGES.APP.HOME && <HomeScreen />}
       {navPage === APP_PAGES.APP.CREATE && <CreateTaskScreen />}
       {navPage === APP_PAGES.APP.SPECTASK && <SpecTaskScreen />}
-      {navPage === APP_PAGES.APP.CALENDER && <CalenderScreen />}
-      {navPage === APP_PAGES.APP.VERIFY_USER && <VerifyUserScreen />}
     </View>
   );
 };
